@@ -1,0 +1,17 @@
+services:
+  web:
+    build:
+      dockerfile: development.Dockerfile
+      context: .
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgres://postgres:mysecretpassword@postgres:5432/postgres
+      - RAILS_ENV=development
+    volumes:
+      - .:/var/app
+
+  postgres:
+    image: "postgres:16.2"
+    environment:
+      - POSTGRES_PASSWORD=mysecretpassword
