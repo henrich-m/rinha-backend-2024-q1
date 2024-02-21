@@ -12,8 +12,9 @@ COPY Gemfile.lock .
 
 COPY vendor/cache .
 
-RUN bundle install
+RUN bundle install -j4
 
-RUN bundle package --all
+# Entrypoint prepares the database.
+ENTRYPOINT ["/var/app/bin/docker-entrypoint"]
 
 CMD ["./bin/rails", "server", "-b", "0.0.0.0"]

@@ -6,10 +6,12 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - DATABASE_URL=postgres://postgres:mysecretpassword@postgres:5432/postgres
+      - POSTGRES_PASSWORD=mysecretpassword
       - RAILS_ENV=development
     volumes:
       - .:/var/app
+    depends_on:
+      - postgres
 
   postgres:
     image: "postgres:16.2"
