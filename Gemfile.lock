@@ -80,14 +80,13 @@ GEM
     bootsnap (1.18.3)
       msgpack (~> 1.2)
     builder (3.2.4)
+    coderay (1.1.3)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     crass (1.0.6)
     date (3.3.4)
-    debug (1.9.1)
-      irb (~> 1.10)
-      reline (>= 0.3.8)
     diff-lcs (1.5.1)
+    docile (1.4.0)
     drb (2.2.0)
       ruby2_keywords
     erubi (1.12.0)
@@ -108,6 +107,7 @@ GEM
       net-pop
       net-smtp
     marcel (1.0.2)
+    method_source (1.0.0)
     mini_mime (1.1.5)
     minitest (5.22.2)
     msgpack (1.7.2)
@@ -137,6 +137,9 @@ GEM
     oj (3.16.3)
       bigdecimal (>= 3.0)
     pg (1.5.5)
+    pry (0.14.2)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
     psych (5.1.2)
       stringio
     puma (6.4.2)
@@ -202,6 +205,12 @@ GEM
       rspec-support (~> 3.12)
     rspec-support (3.13.0)
     ruby2_keywords (0.0.5)
+    simplecov (0.22.0)
+      docile (~> 1.1)
+      simplecov-html (~> 0.11)
+      simplecov_json_formatter (~> 0.1)
+    simplecov-html (0.12.3)
+    simplecov_json_formatter (0.1.4)
     stringio (3.1.0)
     thor (1.3.0)
     timeout (0.4.1)
@@ -225,9 +234,11 @@ DEPENDENCIES
   bootsnap
   oj
   pg (~> 1.1)
+  pry
   puma (>= 5.0)
   rails (~> 7.1.3)
   rspec-rails
+  simplecov
   tzinfo-data
 
 RUBY VERSION
