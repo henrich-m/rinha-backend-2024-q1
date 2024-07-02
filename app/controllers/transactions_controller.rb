@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TransactionsController < ApplicationController
-  rescue_from ActiveRecord::RecordInvalid, ActionController::ParameterMissing, ProcessTransaction::UnkownProcessor,
+  rescue_from ActiveRecord::RecordInvalid, ActionController::ParameterMissing,
               ProcessTransaction::NotEnoughFunds do |exception|
     render json: { error: exception.message }, status: :unprocessable_entity
   end
@@ -11,7 +11,7 @@ class TransactionsController < ApplicationController
   end
 
   def create
-    customer = Customer.lock.find(customer_params)
+    customer = Customer.find(customer_params)
     transaction = customer.transactions.build(transaction_params)
 
     ProcessTransaction.new.call(transaction, customer)
@@ -20,10 +20,12 @@ class TransactionsController < ApplicationController
       'limite' => customer.limite,
       'saldo' => customer.saldo
     }
+  rescue ProcessTransaction::UnkownProcessor
+    render json: { error: exception.message }, status: :unprocessable_entity
   end
 
   def report
-    customer = Customer.includes(:transactions).find(customer_params)
+    customer = Customer.find(customer_params)
 
     render json: {
       'saldo' => {
@@ -31,7 +33,7 @@ class TransactionsController < ApplicationController
         'data_extrato' => Time.zone.now.iso8601(6),
         'limite' => customer.limite
       },
-      'ultimas_transacoes' => customer.transactions.map do |transaction|
+      'ultimas_transacoes' => customer.transactions.limit(10).map do |transaction|
         {
           'valor' => transaction.valor,
           'tipo' => transaction.tipo,

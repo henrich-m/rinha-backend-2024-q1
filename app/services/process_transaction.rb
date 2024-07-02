@@ -7,9 +7,9 @@ class ProcessTransaction
   def call(transaction, customer)
     customer.with_lock do
       processors(transaction.tipo).new.call(transaction, customer)
-      transaction.save!
       customer.save!
     end
+    transaction.save!
   end
 
   private
