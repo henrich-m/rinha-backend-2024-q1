@@ -6,7 +6,7 @@ RSpec.describe ProcessTransaction::D do
   describe '.call' do
     context 'when customer has enough balance' do
       it 'deduces the value from balance' do
-        customer = Customer.new(limite: 0, saldo: 100_00)
+        customer = Customer.new(limite: 0, saldo: 100_000)
 
         transaction = customer.transactions.build(tipo: 'd', valor: 100_00, descricao: 'compra')
 

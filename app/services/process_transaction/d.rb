@@ -6,7 +6,8 @@ class ProcessTransaction
       balance = customer.saldo - transaction.valor
 
       if balance.positive? || balance.zero? || balance >= (customer.limite * -1)
-        customer.saldo = balance
+        Customer.decrement_counter(:saldo, customer.id, by: transaction.valor)
+        # customer.saldo = balance
         return
       end
 
