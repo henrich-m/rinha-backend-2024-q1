@@ -20,7 +20,7 @@ class TransactionsController < ApplicationController
       'limite' => customer.limite,
       'saldo' => customer.saldo
     }
-  rescue ProcessTransaction::UnkownProcessor
+  rescue ProcessTransaction::UnkownProcessor => exception
     render json: { error: exception.message }, status: :unprocessable_entity
   end
 

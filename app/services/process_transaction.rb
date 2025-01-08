@@ -5,10 +5,10 @@ class ProcessTransaction
   class UnkownProcessor < RuntimeError; end
 
   def call(transaction, customer)
-    customer.with_lock do
-      processors(transaction.tipo).new.call(transaction, customer)
-      customer.save!
-    end
+    processors(transaction.tipo).new.call(transaction, customer)
+    # customer.with_lock do
+    #   customer.save!
+    # end
     transaction.save!
   end
 
